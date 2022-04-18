@@ -18,24 +18,29 @@ void PrintLine()
 }
 
 template<typename T>
-String Prompt(const T prompt)
+String Prompt(const T prompt, bool endline = false)
 {
-	PrintLine(prompt);
+	// Prompt
+	std::cout << prompt;
+	if (endline)
+		std::cout << std::endl;
+
+	// Get input
 	String input;
 	std::cin >> input;
+
 	return String(input);
 }
 
 int main()
 {
-#pragma region Initializing_variables
 	bool is_playing = true;
 
 	int round = 1;
 	int wins = 0;
 	int losses = 0;
 	int draws = 0;
-#pragma endregion
+
 	while (is_playing)
 	{
 		std::cout << "ROUND " << round << std::endl;
@@ -45,13 +50,15 @@ int main()
 		while (playerShape == -1)
 		{
 			String playerShapeName = Prompt(
-				"Input your choice (`r` - rock, `p` - paper, `s` - scissors):");
+				"Input your choice (`r` - rock, `p` - paper, `s` - scissors): ");
 			playerShape = ConvertShapeNameIntoShape(playerShapeName);
 		}
 
 		// Computer chooses its shape
 		int computerShape = rand() % (rps::_Shapes_MAX + 1);
 		
+		// Print out the player's and the computer's shapes
+		PrintLine();
 		std::cout << "You choose: " << GetShapeName(playerShape) << std::endl;
 		std::cout << "Opponent chooses: " << GetShapeName(computerShape) << std::endl;
 
@@ -93,7 +100,7 @@ int main()
 Enter one the the commands:
 [play] - play again
 [reset] - reset score and play
-[exit] - exit the game)");
+[exit] - exit the game)", true);
 
 			if (continueChoice == "p" || continueChoice == "play")
 			{
@@ -101,6 +108,7 @@ Enter one the the commands:
 			}
 			else if (continueChoice == "r" || continueChoice == "reset")
 			{
+				round = 1;
 				wins = 0;
 				losses = 0;
 				draws = 0;
