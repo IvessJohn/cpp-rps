@@ -2,12 +2,15 @@
 #include <string>
 using String = std::string;
 
-template<typename T>
-void PrintLine(T value);
+//enum class EndgameChoices
+//{
+//	Play,
+//	Reset,
+//	Quit
+//};
 
-template<typename T>
-String Prompt(T prompt);
+int ConvertShapeNameIntoShape(const String shapeName);
 
-int ConvertShapeNameIntoShape(String shapeName);
+String GetShapeName(const int shape);
 
-String GetShapeName(int shape);
+String GetEndgameMenuChoiceAsInt(const String strChoice);

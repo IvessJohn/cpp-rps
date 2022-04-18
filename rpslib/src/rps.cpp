@@ -9,7 +9,7 @@ void ShowTestMessage()
 
 namespace rps
 {
-	int Battle(Shapes playerShape, Shapes opponentShape)
+	int Battle(const Shapes playerShape, const Shapes opponentShape)
 	{
 		if (playerShape == opponentShape)
 			return _Draw;

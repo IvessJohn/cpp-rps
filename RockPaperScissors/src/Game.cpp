@@ -7,7 +7,7 @@
 using String = std::string;
 
 template<typename T>
-void PrintLine(T value)
+void PrintLine(const T value)
 {
 	std::cout << value << std::endl;
 }
@@ -18,7 +18,7 @@ void PrintLine()
 }
 
 template<typename T>
-String Prompt(T prompt)
+String Prompt(const T prompt)
 {
 	PrintLine(prompt);
 	String input;
@@ -31,20 +31,30 @@ int main()
 #pragma region Initializing_variables
 	bool is_playing = true;
 
+	int round = 1;
 	int wins = 0;
 	int losses = 0;
 	int draws = 0;
 #pragma endregion
 	while (is_playing)
 	{
+		std::cout << "ROUND " << round << std::endl;
+
 		// Prompt player input
-		String playerShapeName = Prompt("Input your choice (`rock`, `paper`, `scissors`):");
-		int playerShape = ConvertShapeNameIntoShape(playerShapeName);
+		int playerShape = -1; // -1 = unset/invalid value
+		while (playerShape == -1)
+		{
+			String playerShapeName = Prompt(
+				"Input your choice (`r` - rock, `p` - paper, `s` - scissors):");
+			playerShape = ConvertShapeNameIntoShape(playerShapeName);
+		}
 
 		// Computer chooses its shape
 		int computerShape = rand() % (rps::_Shapes_MAX + 1);
-		std::cout << "Opponent chooses: " << GetShapeName(computerShape) << std::endl;
 		
+		std::cout << "You choose: " << GetShapeName(playerShape) << std::endl;
+		std::cout << "Opponent chooses: " << GetShapeName(computerShape) << std::endl;
+
 		// Determine a winner
 		int outcome = rps::Battle(rps::Shapes(playerShape), rps::Shapes(computerShape));
 
@@ -52,37 +62,58 @@ int main()
 		PrintLine();
 		switch (outcome)
 		{
-			case rps::_Win:
-				PrintLine("WIN!");
-				wins++;
-				break;
+		case rps::_Win:
+			PrintLine("WIN!");
+			wins++;
+			break;
 
-			case rps::_Draw:
-				PrintLine("Draw.");
-				draws++;
-				break;
+		case rps::_Draw:
+			PrintLine("Draw.");
+			draws++;
+			break;
 
-			case rps::_Loss:
-				PrintLine("Loss!");
-				losses++;
-				break;
+		case rps::_Loss:
+			PrintLine("Loss!");
+			losses++;
+			break;
 		}
+		round++;
 
-		
 
-#pragma region Outcome
-		PrintLine();
-		PrintLine("SUMMARY");
+		PrintLine("\n---SUMMARY---");
 		std::cout << "Wins: " << wins << std::endl;
 		std::cout << "Losses: " << losses << std::endl;
 		std::cout << "Draws: " << draws << std::endl;
-		std::cout << std::endl;
 
-		PrintLine("Enter one the the commands:");
-		PrintLine("[play] - play again");
-		PrintLine("[reset] - reset score and play");
-		PrintLine("[exit] - exit the game");
-		
-#pragma endregion Show outcome and offer to continue
+		// Prompt the user until his answer is one of: `play`, `reset`, `exit`
+		bool is_waiting_for_action = true;
+		while (is_waiting_for_action)
+		{
+			String continueChoice = Prompt(R"(
+Enter one the the commands:
+[play] - play again
+[reset] - reset score and play
+[exit] - exit the game)");
+
+			if (continueChoice == "p" || continueChoice == "play")
+			{
+				is_waiting_for_action = false;
+			}
+			else if (continueChoice == "r" || continueChoice == "reset")
+			{
+				wins = 0;
+				losses = 0;
+				draws = 0;
+
+				is_waiting_for_action = false;
+			}
+			else if (continueChoice == "e" || continueChoice == "exit")
+			{
+				is_waiting_for_action = false;
+				is_playing = false;
+			}
+			// If the input is invalid, keep prompting
+		}
+		PrintLine("-------------------------------");
 	}
 }

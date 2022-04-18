@@ -20,5 +20,5 @@ namespace rps
 		_Shapes_MAX = _Scissors
 	};
 
-	int Battle(Shapes playerShape, Shapes opponentShape);
+	int Battle(const Shapes playerShape, const Shapes opponentShape);
 }

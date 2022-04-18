@@ -4,12 +4,19 @@
 #include <string>
 using String = std::string;
 
-int ConvertShapeNameIntoShape(String shapeName)
+int ConvertShapeNameIntoShape(const String shapeName)
 {
-	return rps::_Rock;
+	if (shapeName == "r" || shapeName == "rock")
+		return rps::_Rock;
+	else if (shapeName == "p" || shapeName == "paper")
+		return rps::_Paper;
+	else if (shapeName == "s" || shapeName == "scissors")
+		return rps::_Scissors;
+	
+	return -1;
 }
 
-String GetShapeName(int shape)
+String GetShapeName(const int shape)
 {
 	switch (shape)
 	{
@@ -27,4 +34,10 @@ String GetShapeName(int shape)
 	}
 
 	return "UNDEFINED";
+}
+
+
+String GetEndgameMenuChoiceAsInt(String strChoice)
+{
+	return "";
 }
