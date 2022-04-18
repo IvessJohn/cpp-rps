@@ -9,3 +9,5 @@ template<typename T>
 String Prompt(T prompt);
 
 int ConvertShapeNameIntoShape(String shapeName);
+
+String GetShapeName(int shape);

@@ -8,14 +8,16 @@ namespace rps
 	{
 		_Loss = -1,
 		_Draw = 0,
-		_Win = 1
+		_Win = 1,
+		_Outcomes_MAX = _Win
 	};
 
 	enum Shapes
 	{
 		_Rock,
 		_Paper,
-		_Scissors
+		_Scissors,
+		_Shapes_MAX = _Scissors
 	};
 
 	int Battle(Shapes playerShape, Shapes opponentShape);

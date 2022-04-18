@@ -3,12 +3,18 @@
 
 #include <iostream>
 #include <string>
+#include <stdlib.h>
 using String = std::string;
 
 template<typename T>
 void PrintLine(T value)
 {
 	std::cout << value << std::endl;
+}
+
+void PrintLine()
+{
+	PrintLine("");
 }
 
 template<typename T>
@@ -31,22 +37,42 @@ int main()
 #pragma endregion
 	while (is_playing)
 	{
-#pragma region Choose_Shape
-		String playerShapeName = Prompt("Input your choice (`rock`, `paper`, `scissors`) :");
+		// Prompt player input
+		String playerShapeName = Prompt("Input your choice (`rock`, `paper`, `scissors`):");
 		int playerShape = ConvertShapeNameIntoShape(playerShapeName);
-#pragma endregion Receiving player input
 
-#pragma region Play
 		// Computer chooses its shape
-
+		int computerShape = rand() % (rps::_Shapes_MAX + 1);
+		std::cout << "Opponent chooses: " << GetShapeName(computerShape) << std::endl;
+		
 		// Determine a winner
+		int outcome = rps::Battle(rps::Shapes(playerShape), rps::Shapes(computerShape));
 
 		// Add score
+		PrintLine();
+		switch (outcome)
+		{
+			case rps::_Win:
+				PrintLine("WIN!");
+				wins++;
+				break;
+
+			case rps::_Draw:
+				PrintLine("Draw.");
+				draws++;
+				break;
+
+			case rps::_Loss:
+				PrintLine("Loss!");
+				losses++;
+				break;
+		}
+
 		
-#pragma endregion All the behind-the-scenes game code
 
 #pragma region Outcome
-		PrintLine("------");
+		PrintLine();
+		PrintLine("SUMMARY");
 		std::cout << "Wins: " << wins << std::endl;
 		std::cout << "Losses: " << losses << std::endl;
 		std::cout << "Draws: " << draws << std::endl;
