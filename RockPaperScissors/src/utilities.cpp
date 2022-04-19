@@ -4,7 +4,7 @@
 #include <string>
 using String = std::string;
 
-int ConvertShapeNameIntoShape(const String shapeName)
+int ConvertShapeNameIntoShape(const String& shapeName)
 {
 	if (shapeName == "r" || shapeName == "rock")
 		return rps::_Rock;
@@ -37,7 +37,7 @@ String GetShapeName(const int shape)
 }
 
 
-String GetEndgameMenuChoiceAsInt(String strChoice)
+int GetEndgameMenuChoiceAsInt(String& strChoice)
 {
-	return "";
+	return -1;
 }

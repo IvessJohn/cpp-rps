@@ -9,8 +9,8 @@ using String = std::string;
 //	Quit
 //};
 
-int ConvertShapeNameIntoShape(const String shapeName);
+int ConvertShapeNameIntoShape(const String& shapeName);
 
 String GetShapeName(const int shape);
 
-String GetEndgameMenuChoiceAsInt(const String strChoice);
+int GetEndgameMenuChoiceAsInt(const String& strChoice);

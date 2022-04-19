@@ -7,23 +7,23 @@
 using String = std::string;
 
 template<typename T>
-void PrintLine(const T value)
+void Print(const T& value, bool endline = true)
 {
-	std::cout << value << std::endl;
+	std::cout << value;
+	if (endline)
+		std::cout << std::endl;
 }
 
 void PrintLine()
 {
-	PrintLine("");
+	Print("");
 }
 
 template<typename T>
-String Prompt(const T prompt, bool endline = false)
+String Prompt(const T& prompt, bool endline = false)
 {
 	// Prompt
-	std::cout << prompt;
-	if (endline)
-		std::cout << std::endl;
+	Print(prompt, endline);
 
 	// Get input
 	String input;
@@ -70,24 +70,24 @@ int main()
 		switch (outcome)
 		{
 		case rps::_Win:
-			PrintLine("WIN!");
+			Print("WIN!");
 			wins++;
 			break;
 
 		case rps::_Draw:
-			PrintLine("Draw.");
+			Print("Draw.");
 			draws++;
 			break;
 
 		case rps::_Loss:
-			PrintLine("Loss!");
+			Print("Loss!");
 			losses++;
 			break;
 		}
 		round++;
 
 
-		PrintLine("\n---SUMMARY---");
+		Print("\n---SUMMARY---");
 		std::cout << "Wins: " << wins << std::endl;
 		std::cout << "Losses: " << losses << std::endl;
 		std::cout << "Draws: " << draws << std::endl;
@@ -122,6 +122,6 @@ Enter one the the commands:
 			}
 			// If the input is invalid, keep prompting
 		}
-		PrintLine("-------------------------------");
+		Print("-------------------------------\n");
 	}
 }
