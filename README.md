@@ -3,7 +3,7 @@
 #### Developed by [Ivan "John Ivess" Shyika](https://www.youtube.com/c/JohnIvess) in C++ for practice
 
 ## Demo
-[Demo screenshot](demo/demo.png)
+![Demo screenshot](demo/demo.png)
 
 ---
 
