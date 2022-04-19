@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include <stdlib.h>
+#include <random>
 using String = std::string;
 
 template<typename T>
@@ -32,6 +33,9 @@ String Prompt(const T& prompt, bool endline = false)
 	return String(input);
 }
 
+std::default_random_engine gen(time(NULL));
+std::uniform_int_distribution<int> dist(1, 3);
+
 int main()
 {
 	bool is_playing = true;
@@ -55,7 +59,7 @@ int main()
 		}
 
 		// Computer chooses its shape
-		int computerShape = rand() % (rps::_Shapes_MAX + 1);
+		int computerShape = dist(gen) % (rps::_Shapes_MAX + 1);
 		
 		// Print out the player's and the computer's shapes
 		PrintLine();
